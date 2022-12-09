@@ -59,6 +59,13 @@ LIBXPACK_API void pack_pack_raw(packer_t packerId, size_t* field, bool sendZero,
 	packer->packRaw(field, sendZero, data, size);
 }
 
+LIBXPACK_API size_t pack_unpack_pick_field(packer_t packerId) {
+	Packer* packer = PackerManager::getInstance()->getPacker(packerId);
+	if (packer == nullptr) { pack_log_error("packer is null:%d", packerId); return 0; }
+
+	return packer->unpackPickField();
+}
+
 LIBXPACK_API size_t pack_unpack_field(packer_t packerId) {
 	Packer* packer = PackerManager::getInstance()->getPacker(packerId);
 	if (packer == nullptr) { pack_log_error("packer is null:%d", packerId); return 0; }

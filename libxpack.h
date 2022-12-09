@@ -31,6 +31,7 @@ extern "C" {
 	LIBXPACK_API void pack_pack_raw(packer_t packerId, size_t* field, bool sendZero, void* data, size_t size);
 
 	LIBXPACK_API void pack_unpack_init(packer_t packerId, void* data, size_t size);
+	LIBXPACK_API size_t pack_unpack_pick_field(packer_t packerId);
 	LIBXPACK_API size_t pack_unpack_field(packer_t packerId);
 	LIBXPACK_API uint64_t pack_unpack_uint(packer_t packerId, size_t* field);
 	LIBXPACK_API uint64_t pack_unpack_int(packer_t packerId, size_t* field);

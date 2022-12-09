@@ -21,6 +21,7 @@ public:
 
 	void unpackInit(void* data, size_t size);
 
+	size_t unpackPickField();
 	size_t unpackField();
 	uint64_t unpackUint(size_t *field);
 	int64_t unpackInt(size_t *field);

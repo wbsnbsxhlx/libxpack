@@ -124,6 +124,12 @@ size_t Packer::unpackField() {
 	return ret;
 }
 
+size_t Packer::unpackPickField() {
+	uint8_t ret;
+	_unpackBuffer.pick(&ret, 1);
+	return ret;
+}
+
 uint64_t Packer::unpackUint(size_t *field) {
 	if (field == nullptr){
 		return _unpackUint();
