@@ -5,7 +5,11 @@ PackBuffer::PackBuffer(size_t buf_size)
 	:_size(0), 
 	_cap(buf_size), 
 	_offset(0) {
-	_buf = new uint8_t[buf_size];
+	if (buf_size != 0){
+		_buf = new uint8_t[buf_size];
+	} else {
+		_buf = nullptr;
+	}
 }
 
 PackBuffer::~PackBuffer() {
@@ -13,6 +17,13 @@ PackBuffer::~PackBuffer() {
 		delete[] _buf;
 		_buf = nullptr;
 	}
+}
+
+void PackBuffer::setBuf(uint8_t* data, size_t size) {
+	_cap = size;
+	_size = size;
+	_offset = 0;
+	_buf = data;
 }
 
 void PackBuffer::write(uint8_t* data, size_t size) {
@@ -37,3 +48,22 @@ void PackBuffer::reset() {
 	_size = 0;
 }
 
+uint8_t* PackBuffer::data(size_t* size) {
+	if (size != nullptr){
+		*size = _size;
+	}
+	return _buf+_offset;
+}
+
+void PackBuffer::drop(size_t n) {
+	_offset += n;
+}
+
+void PackBuffer::read(uint8_t* data, size_t size) {
+	memcpy(data, _buf+_offset, size);
+	_offset += size;
+}
+
+void PackBuffer::pick(uint8_t* data, size_t size) {
+	memcpy(data, _buf + _offset, size);
+}
