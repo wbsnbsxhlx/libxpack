@@ -23,19 +23,15 @@ extern "C" {
 	LIBXPACK_API packer_t pack_create(size_t buf_size);
 	LIBXPACK_API void pack_destroy(packer_t* packerId);
 
-	LIBXPACK_API void pack_pack_struct_end(packer_t packerId);
 	LIBXPACK_API void* pack_get_data(packer_t packerId, size_t* size);
-	LIBXPACK_API void pack_pack_field(packer_t packerId, size_t* field);
-	LIBXPACK_API void pack_pack_int(packer_t packerId, size_t* field, bool sendZero, uint64_t n);
-	LIBXPACK_API void pack_pack_uint(packer_t packerId, size_t* field, bool sendZero, uint64_t n);
-	LIBXPACK_API void pack_pack_raw(packer_t packerId, size_t* field, bool sendZero, void* data, size_t size);
+	LIBXPACK_API void pack_pack_int(packer_t packerId, int64_t n);
+	LIBXPACK_API void pack_pack_uint(packer_t packerId, uint64_t n);
+	LIBXPACK_API void pack_pack_raw(packer_t packerId, void* data, size_t size);
 
 	LIBXPACK_API void pack_unpack_init(packer_t packerId, void* data, size_t size);
-	LIBXPACK_API size_t pack_unpack_pick_field(packer_t packerId);
-	LIBXPACK_API size_t pack_unpack_field(packer_t packerId);
-	LIBXPACK_API uint64_t pack_unpack_uint(packer_t packerId, size_t* field);
-	LIBXPACK_API uint64_t pack_unpack_int(packer_t packerId, size_t* field);
-	LIBXPACK_API void pack_unpack_raw(packer_t packerId, size_t* field, void** data, size_t* size);
+	LIBXPACK_API uint64_t pack_unpack_uint(packer_t packerId);
+	LIBXPACK_API uint64_t pack_unpack_int(packer_t packerId);
+	LIBXPACK_API void pack_unpack_raw(packer_t packerId, void** data, size_t* size);
 }
 
 #endif // libxpack_h__
