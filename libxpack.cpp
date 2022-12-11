@@ -38,6 +38,13 @@ LIBXPACK_API void pack_pack_int(packer_t packerId, int64_t n) {
 	packer->packInt(n);
 }
 
+LIBXPACK_API void pack_pack_float(packer_t packerId, double n) {
+	Packer* packer = PackerManager::getInstance()->getPacker(packerId);
+	if (packer == nullptr) { pack_log_error("packer is null:%d", packerId); return; }
+
+	packer->packFloat(n);
+}
+
 LIBXPACK_API void pack_pack_raw(packer_t packerId, void* data, size_t size) {
 	Packer* packer = PackerManager::getInstance()->getPacker(packerId);
 	if (packer == nullptr) { pack_log_error("packer is null:%d", packerId); return; }
@@ -64,6 +71,13 @@ LIBXPACK_API uint64_t pack_unpack_int(packer_t packerId) {
 	if (packer == nullptr) { pack_log_error("packer is null:%d", packerId); return 0; }
 
 	return packer->unpackInt();
+}
+
+LIBXPACK_API double pack_unpack_float(packer_t packerId) {
+	Packer* packer = PackerManager::getInstance()->getPacker(packerId);
+	if (packer == nullptr) { pack_log_error("packer is null:%d", packerId); return 0; }
+
+	return packer->unpackFloat();
 }
 
 LIBXPACK_API void pack_unpack_raw(packer_t packerId, void** data, size_t* size) {

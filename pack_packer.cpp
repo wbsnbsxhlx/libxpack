@@ -3,6 +3,15 @@
 #include <WinSock2.h>
 #include <assert.h>
 
+const uint64_t m3 = 0x00ff00ff00ff00ff;
+const uint64_t m4 = 0x0000ffff0000ffff;
+
+uint64_t reverseUint(uint64_t n) {
+	n = n >> 8 & m3 | (n&m3) << 8;
+	n = n >> 16 & m4 | (n&m4) << 16;
+	return n >> 32 | n << 32;
+}
+
 Packer::Packer(size_t buf_size)
 	:_packBuffer(buf_size),
 	_unpackBuffer(0){
@@ -53,6 +62,10 @@ void Packer::packInt(int64_t n) {
 	packUint(x);
 }
 
+void Packer::packFloat(double n) {
+	packUint(reverseUint(*((uint64_t*)&n)));
+}
+
 void Packer::unpackInit(void* data, size_t size) {
 	_unpackBuffer.setBuf((uint8_t*)data, size);
 }
@@ -81,6 +94,13 @@ int64_t Packer::unpackInt() {
 		return ~(int64_t)(ret >> 1);
 	}
 	return ret >> 1;
+}
+
+double Packer::unpackFloat() {
+	uint64_t n = reverseUint(unpackUint());
+	double d = *((double *)&n);
+
+	return *((double *)&n);
 }
 
 void Packer::unpackRaw(void** data, size_t* size) {

@@ -14,6 +14,7 @@ public:
 	uint8_t* getData(size_t* size);
 
 	void packInt(int64_t n);
+	void packFloat(double n);
 	void packUint(uint64_t n);
 	void packRaw(void* data, size_t size);
 
@@ -21,6 +22,7 @@ public:
 
 	uint64_t unpackUint();
 	int64_t unpackInt();
+	double unpackFloat();
 	void unpackRaw(void** data, size_t* size);
 private:
 

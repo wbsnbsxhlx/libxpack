@@ -32,6 +32,8 @@ extern "C" {
 	LIBXPACK_API uint64_t pack_unpack_uint(packer_t packerId);
 	LIBXPACK_API uint64_t pack_unpack_int(packer_t packerId);
 	LIBXPACK_API void pack_unpack_raw(packer_t packerId, void** data, size_t* size);
+	LIBXPACK_API double pack_unpack_float(packer_t packerId);
+	LIBXPACK_API void pack_pack_float(packer_t packerId, double n);
 }
 
 #endif // libxpack_h__
